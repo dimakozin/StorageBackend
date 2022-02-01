@@ -8,10 +8,12 @@ import { GraphQLSchema } from 'graphql'
 import { graphqlHTTP } from 'express-graphql'
 
 import StorageType from './types/StorageType'
+import MutationsSubject from './types/MutationSubjectType'
 
 app.use('/graphql', graphqlHTTP({
     schema: new GraphQLSchema({
-        query: StorageType
+        query: StorageType,
+        mutation: MutationsSubject
     }),
     graphiql: true
 }))
