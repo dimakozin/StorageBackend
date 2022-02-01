@@ -1,4 +1,6 @@
-import * as express from 'express'
+import express from 'express'
+import db from './db.json'
+
 let port = 3000
 const app = express();
 
@@ -23,31 +25,8 @@ const typeDefs = `
 const schema = buildSchema(typeDefs)
 
 const resolvers = {
-    subject: ({id}) => {
-        return {
-            "id": 1,
-            "title": "Лист Д16 3000х1200х10",
-            "section": 2,
-            "amount": 3,
-            "boxId": "Г4"
-        }
-    },
-    subjects: () => [
-        {
-            "id": 1,
-            "title": "Лист Д16 3000х1200х10",
-            "section": 2,
-            "amount": 3,
-            "boxId": "Г4"
-          },
-          {
-            "id": 2,
-            "title": "Лист АМГ5 800х830х8",
-            "section": 2,
-            "amount": 1,
-            "boxId": "Г4"
-          }
-    ]
+    subject: ({id}) =>  db.subjects.filter( item => item.id == id )[0],
+    subjects: () => db.subjects
 } 
 
 app.use('/graphql', graphqlHTTP({

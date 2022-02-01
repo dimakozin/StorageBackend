@@ -4,6 +4,8 @@
         "removeComments": true,
         "outDir": "js",
         "sourceMap": true,
-        "outFile": "index.js"
+        "outFile": "index.js",
+        "resolveJsonModule": true,
+        "esModuleInterop": true
     }
 }
