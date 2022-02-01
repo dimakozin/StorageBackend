@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLInputObjectType, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
+import { GraphQLObjectType, GraphQLInputObjectType, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt, Source } from "graphql";
 import SubjectType from "./SubjectType";
 
 export default new GraphQLObjectType({
@@ -9,7 +9,7 @@ export default new GraphQLObjectType({
             type: SubjectType,
             args: {
                 input: { type: new GraphQLInputObjectType({
-                    name: 'SubjectInputType',
+                    name: 'AddSubjectInputType',
                     fields: {
                         title: {
                             type: new GraphQLNonNull(GraphQLString),
@@ -34,6 +34,23 @@ export default new GraphQLObjectType({
                 let data = args.input
                 //TODO: add to DB
                 console.log(data)
+            }
+        },
+        removeItem: {
+            type: SubjectType,
+            args: {
+                input: {type: new GraphQLInputObjectType({
+                    name: "RemoveSubjectInputType",
+                    fields: {
+                        id: {
+                            type: new GraphQLNonNull(GraphQLID),
+                            description: "Идентификатор объекта"
+                        }
+                    }
+                })}
+            },
+            resolve: (source, args) => {
+                console.log(args.input)
             }
         }
     }
