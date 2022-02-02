@@ -1,10 +1,9 @@
 import express from 'express'
-
-let port = 3000
-const app = express();
-
 import { graphqlHTTP } from 'express-graphql'
 import StorageScheme from './schemes/StorageScheme'
+
+const port = 3000
+const app = express();
 
 app.use('/graphql', graphqlHTTP({
     schema: StorageScheme,
