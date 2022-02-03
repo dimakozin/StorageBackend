@@ -62,6 +62,53 @@ export default new GraphQLObjectType({
 
                 return id
             }
+        },
+        addOne: {
+            type: SubjectType,
+            args: {
+                input: { type: new GraphQLInputObjectType({
+                    name: 'AddOneInputType',
+                    fields: {
+                        id: {
+                            type: new GraphQLNonNull(GraphQLID),
+                            description: "Идентификатор объекта"
+                        }
+                    }
+                })}
+            },
+            resolve: (source, args) => {
+                const id = args.input.id
+
+                const item = db.subjects.find(item => item.id == id)
+                item.amount++
+                fs.writeFile('db.json', JSON.stringify(db), () => {})
+
+                return item
+            }
+        },
+        removeOne: {
+            type: GraphQLID,
+            args: {
+                input: {type: new GraphQLInputObjectType({
+                    name: "RemoveOneInputType",
+                    fields: {
+                        id: {
+                            type: new GraphQLNonNull(GraphQLID),
+                            description: "Идентификатор объекта"
+                        }
+                    }
+                })}
+            },
+            resolve: (source, args) => {
+                const id = args.input.id
+
+                const item = db.subjects.find(item => item.id == id)
+                item.amount--
+                fs.writeFile('db.json', JSON.stringify(db), () => {})
+
+                return item
+            }
         }
+
     }
 })
