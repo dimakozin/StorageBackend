@@ -43,7 +43,7 @@ export default new GraphQLObjectType({
             }
         },
         removeItem: {
-            type: SubjectType,
+            type: GraphQLID,
             args: {
                 input: {type: new GraphQLInputObjectType({
                     name: "RemoveSubjectInputType",
@@ -56,7 +56,11 @@ export default new GraphQLObjectType({
                 })}
             },
             resolve: (source, args) => {
-                console.log(args.input)
+                const id = args.input.id
+                db.subjects = db.subjects.filter(item => item.id != id)
+                fs.writeFile('db.json', JSON.stringify(db), () => {})
+
+                return id
             }
         }
     }
