@@ -6,7 +6,8 @@
   "scripts": {
     "server": "npx ts-node index.ts",
     "build": "tsc index.ts",
-    "nodemon": "nodemon index.ts"
+    "nodemon": "nodemon index.ts",
+    "getBySection": "npx ts-node getBySectionAndBoxes.ts"
   },
   "repository": {
     "type": "git",
